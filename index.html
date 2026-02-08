@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentinovo 💘</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500&display=swap');
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(#9ad9ff, #fff);
+  overflow: hidden;
+  font-family: 'Quicksand', sans-serif;
+}
+
+/* Drevo */
+#tree {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 450px;
+}
+
+/* Deblo */
+#trunk {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 220px;
+  background: #6b3e26;
+  border-radius: 20px;
+  animation: growTrunk 2s forwards;
+}
+
+@keyframes growTrunk {
+  from { height: 0; }
+  to { height: 220px; }
+}
+
+/* Veje */
+.branch {
+  position: absolute;
+  width: 120px;
+  height: 14px;
+  background: #6b3e26;
+  border-radius: 10px;
+  transform-origin: left center;
+  opacity: 0;
+  animation: showBranch 1s forwards;
+}
+
+.branch.left { transform: rotate(-30deg); left: 50%; }
+.branch.right { transform: rotate(30deg); left: 50%; }
+
+.branch.b1 { top: 180px; animation-delay: 2s; }
+.branch.b2 { top: 140px; animation-delay: 2.3s; }
+.branch.b3 { top: 100px; animation-delay: 2.6s; }
+
+@keyframes showBranch {
+  to { opacity: 1; }
+}
+
+/* Srčki na vejah */
+.heart {
+  position: absolute;
+  color: #ff4d6d;
+  font-size: 18px;
+  opacity: 0;
+  animation: popHeart 0.8s forwards;
+}
+
+@keyframes popHeart {
+  to { opacity: 1; transform: scale(1.2); }
+}
+
+/* Vprašanje */
+#question {
+  position: absolute;
+  top: 8%;
+  width: 100%;
+  text-align: center;
+  opacity: 0;
+  animation: showQuestion 2s forwards;
+  animation-delay: 4s;
+}
+
+@keyframes showQuestion {
+  to { opacity: 1; }
+}
+
+#question h1 {
+  font-family: 'Pacifico', cursive;
+  font-size: 36px;
+  color: #d6336c;
+}
+
+button {
+  font-size: 20px;
+  padding: 12px 28px;
+  margin: 10px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+#yes {
+  background: #ff4d6d;
+  color: white;
+}
+
+#no {
+  background: #adb5bd;
+  transition: transform 0.3s;
+}
+</style>
+</head>
+
+<body>
+
+<div id="tree">
+  <div id="trunk"></div>
+
+  <div class="branch left b1"></div>
+  <div class="branch right b1"></div>
+
+  <div class="branch left b2"></div>
+  <div class="branch right b2"></div>
+
+  <div class="branch left b3"></div>
+  <div class="branch right b3"></div>
+</div>
+
+<div id="question">
+  <h1>Bi bila moj Valentin? 💘</h1>
+  <button id="yes" onclick="alert('YAAAY 💖')">DA</button>
+  <button id="no">NE</button>
+</div>
+
+<script>
+/* Srčki se primejo na veje */
+const branches = document.querySelectorAll(".branch");
+
+branches.forEach((branch, i) => {
+  setTimeout(() => {
+    for (let j = 0; j < 5; j++) {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "❤";
+      heart.style.left = branch.offsetLeft + Math.random() * 100 + "px";
+      heart.style.top = branch.offsetTop - Math.random() * 20 + "px";
+      document.getElementById("tree").appendChild(heart);
+    }
+  }, 2800 + i * 200);
+});
+
+/* Gumb NE se povečuje */
+const no = document.getElementById("no");
+let scale = 1;
+
+no.addEventListener("click", () => {
+  scale += 0.3;
+  no.style.transform = `scale(${scale})`;
+});
+</script>
+
+</body>
+</html>
